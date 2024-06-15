@@ -1,11 +1,16 @@
-/*! TAK's Custom Base.css v1.1.0 | MIT License | github.com/tak-dcxi/taks-custom-base-css */
+/*! TAK's Custom Base.css v1.1.1 | MIT License | github.com/tak-dcxi/taks-custom-base-css */
 
-/*
-  TAK's Custom Base.css Made by TAK - https://www.tak-dcxi.com/
-  This CSS is built based on Normalize.css. (https://necolas.github.io/normalize.css/)
-  It aims to normalize styles for better cross-browser compatibility, remove default browser styling, and enhance usability and accessibility for all users."
-*/
+/* ======================================================
+//
+// TAK's Custom Base.css Made by TAK - https://www.tak-dcxi.com/
+// This CSS is built based on Normalize.css. (https: //necolas.github.io/normalize.css/)
+// It aims to normalize styles for better cross-browser compatibility, remove default browser styling, and enhance usability and accessibility for all users."
+//
+// ====================================================== */
 
+/* ======================================================
+// Universal
+// ------------------------------------------------------ */
 *,
 ::before,
 ::after {
@@ -22,6 +27,25 @@
   border-style: solid;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after,
+  ::backdrop {
+    /* Disable animations and transitions for users who prefer reduced motion. */
+    background-attachment: scroll !important;
+    scroll-behavior: auto !important;
+    transition-delay: 0s !important;
+    transition-duration: 1ms !important;
+    animation-duration: 1ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* ======================================================
+// Document
+// ------------------------------------------------------ */
 :where(:root) {
   /* Use a common sans-serif font stack for better cross-platform compatibility. */
   font-family: 'Helvetica Neue', arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'BIZ UDPGothic', meiryo,
@@ -62,15 +86,13 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+/* ======================================================
+// Sections
+// ------------------------------------------------------ */
 :where(body) {
   /* 100% of the viewport's block size. */
   min-block-size: 100svb;
 
-  /* Remove default margin. */
-  margin: unset;
-}
-
-:where(p, table, blockquote, address, pre, iframe, form, figure, ul, ol, dl) {
   /* Reset default margin. */
   margin: unset;
 }
@@ -81,9 +103,29 @@
 
   /* Reset default font-size. */
   font-size: unset;
+}
 
-  /* Reset default font-weight. */
-  font-weight: unset;
+:where(search) {
+  /* Render the `search` element consistently. */
+  display: block flow;
+}
+
+:where(address) {
+  /* Reset default margin. */
+  margin: unset;
+}
+
+:where(address):where(:lang(ja)) {
+  /* Reset font style for specific Japanese language elements. */
+  font-style: normal;
+}
+
+/* ======================================================
+// Grouping contents
+// ------------------------------------------------------ */
+:where(p, hr, pre, blockquote, ul, ol, dl, figure) {
+  /* Reset default margin. */
+  margin: unset;
 }
 
 :where(ul, ol) {
@@ -104,6 +146,9 @@
   margin-inline-start: unset;
 }
 
+/* ======================================================
+// Text-level semantics
+// ------------------------------------------------------ */
 :where(:any-link) {
   /* Remove any default background colors. */
   background-color: unset;
@@ -122,18 +167,11 @@
 }
 
 :where(b, strong) {
-  font-weight: 700;
-
   /* Enhance the weight of bold elements for emphasis. */
+  font-weight: 700;
 }
 
-:where(small) {
-  font-size: 0.8em;
-
-  /* Reduce font size for elements marked as small. */
-}
-
-:where(i, cite, em, address):where(:lang(ja)) {
+:where(i, cite, em):where(:lang(ja)) {
   /* Reset font style for specific Japanese language elements. */
   font-style: normal;
 }
@@ -146,6 +184,33 @@
   font-size: unset;
 }
 
+/* ======================================================
+// Edits
+// ------------------------------------------------------ */
+:where(ins) {
+  /* Use a dashed line for underlining inserted content, making it distinctly visible. */
+  text-decoration-style: dashed;
+
+  /* Position the underline slightly away from the text for enhanced legibility. */
+  text-underline-offset: 0.4em;
+}
+
+:where(del) {
+  /* Apply a double line through the text for deleted content, enhancing visibility. */
+  text-decoration-style: double;
+}
+
+/* ======================================================
+// Embedded contents
+// ------------------------------------------------------ */
+:where(img, svg, video, canvas, audio, iframe, embed, object) {
+  /* Set elements to display as block-level flow containers, suitable for complex layouts. */
+  display: block flow;
+
+  /* Align these elements vertically to the middle of their containing line. */
+  vertical-align: middle;
+}
+
 :where(img, svg, video) {
   /* Automatically adjusts the block size based on content. */
   block-size: auto;
@@ -154,30 +219,41 @@
   max-inline-size: 100%;
 }
 
-:where(img) {
-  /* Aligns images to the bottom of their line box. */
-  vertical-align: bottom;
+/* ======================================================
+// Tables
+// ------------------------------------------------------ */
+:where(table) {
+  /* Remove default margin. */
+  margin: unset;
+
+  /* Collapses border for a more compact table design. */
+  border-collapse: collapse;
 }
 
-:where(svg) {
-  /* Aligns SVGs to the baseline of their line box. */
-  vertical-align: baseline;
+:where(caption) {
+  /* Aligns the caption text to the start of the element. */
+  text-align: start;
 }
 
-:where(iframe) {
-  /* Sets iframe to display as block-level flow root. */
-  display: block flow;
+:where(td, th) {
+  /* Removes default padding from table cells and headers. */
+  padding: unset;
+
+  /* Aligns content of table cells to the top. */
+  vertical-align: top;
 }
 
-:where(button, [type='button'], [type='reset'], [type='submit']),
-::file-selector-button {
-  /* Set the inline-size of the button to match the content's inline-size exactly */
-  inline-size: fit-content;
+:where(th) {
+  /* Makes table header text bold. */
+  font-weight: 700;
 
-  /* Optimizes touch interaction for buttons. */
-  touch-action: manipulation;
+  /* Aligns header text to the start of the cell. */
+  text-align: start;
 }
 
+/* ======================================================
+// Forms
+// ------------------------------------------------------ */
 :where(button, input, optgroup, select, textarea),
 ::file-selector-button {
   /* Removes default margin. */
@@ -214,34 +290,36 @@
   text-transform: unset;
 }
 
-:where( :any-link,
-  button,
-  [type='button'],
-  [type='reset'],
-  [type='submit'],
-  label[for],
-  select,
-  summary,
-  [role='tab'],
-  [role='button']),
-::file-selector-button {
-  /* Indicate clickable elements with a pointer cursor. */
-  cursor: pointer;
-}
-
 :where(textarea) {
-  /* Allows resizing of textarea vertically only */
+  /* Allows resizing of textarea vertically only. */
   resize: block;
-}
-
-::placeholder {
-  /* Normalize the opacity of placeholder text to fully opaque in Firefox, where it might be set to less by default */
-  opacity: initial;
 }
 
 :where([type='file']) {
   /* Default cursor for file input fields. */
   cursor: auto;
+}
+
+:where(button, [type='button'], [type='reset'], [type='submit']),
+::file-selector-button {
+  /* Set the inline-size of the button to match the content's inline-size exactly. */
+  inline-size: fit-content;
+
+  /* Optimizes touch interaction for buttons. */
+  touch-action: manipulation;
+}
+
+:where(button,
+  [type='button'],
+  [type='reset'],
+  [type='submit'],
+  label[for],
+  select,
+  [role='tab'],
+  [role='button']),
+::file-selector-button {
+  /* Indicate clickable elements with a pointer cursor. */
+  cursor: pointer;
 }
 
 :where(:disabled) {
@@ -260,21 +338,34 @@
 }
 
 :where(fieldset) {
-  /* Remove default margin for a more compact layout. */
+  /* Remove default margin. */
   margin: unset;
+}
 
-  /* Remove default padding for a more compact layout. */
-  padding: unset;
+:where(fieldset[role]) {
+  /* When the <fieldset>element has a 'role' attribute, it does not generate a box. */
+  display: contents;
 }
 
 :where(legend) {
-  /* Remove default padding for a more compact layout. */
+  /* Remove default padding. */
   padding: unset;
 }
 
+::placeholder {
+  /* Normalize the opacity of placeholder text to fully opaque in Firefox, where it might be set to less by default. */
+  opacity: initial;
+}
+
+/* ======================================================
+// Interactive elements
+// ------------------------------------------------------ */
 :where(summary) {
   /* Eliminate the default marker from details summary for a cleaner disclosure widget. */
   display: block flow;
+
+  /* Indicate clickable elements with a pointer cursor. */
+  cursor: pointer;
 }
 
 ::-webkit-details-marker {
@@ -282,80 +373,49 @@
   display: none;
 }
 
-:where(table) {
-  /* Collapses border for a more compact table design */
-  border-collapse: collapse;
-}
-
-:where(caption) {
-  /* Aligns the caption text to the start of the element */
-  text-align: start;
-}
-
-:where(td, th) {
-  /* Removes default padding from table cells and headers */
-  padding: unset;
-
-  /* Aligns content of table cells to the top */
-  vertical-align: top;
-}
-
-:where(th) {
-  /* Makes table header text bold */
-  font-weight: 700;
-
-  /* Aligns header text to the start of the cell */
-  text-align: start;
-}
-
-:where(search) {
-  /* Sets search elements to display as block-level */
-  display: block flow;
-}
-
 :where(dialog) {
-  /* Resets overflow property */
+  /* Resets overflow property. */
   overflow: unset;
 
-  /* Resets the inline size property */
+  /* Resets the inline size property. */
   inline-size: unset;
 
-  /* Resets the block size property */
+  /* Resets the block size property. */
   block-size: unset;
 
-  /* Resets the max inline size limit */
+  /* Resets the max inline size limit. */
   max-inline-size: unset;
 
-  /* Resets the max block size limit */
+  /* Resets the max block size limit. */
   max-block-size: unset;
 
-  /* Removes default padding */
+  /* Removes default padding. */
   padding: unset;
 
-  /* Removes default background color */
+  /* Removes default background color. */
   background-color: unset;
 
-  /* Resets color to default */
+  /* Resets color to default. */
   color: unset;
 }
 
 :where([popover]) {
-  /* Resets overflow property */
+  /* Resets overflow property. */
   overflow: unset;
 
-  /* Resets the inline size property */
+  /* Resets the inline size property. */
   inline-size: unset;
 
-  /* Resets the block size property */
+  /* Resets the block size property. */
   block-size: unset;
 
-  /* Removes default padding */
+  /* Removes default padding. */
   padding: unset;
 
-  /* Removes default background color */
+  /* Removes default background color. */
   background-color: unset;
 
-  /* Resets color to default */
+  /* Resets color to default. */
   color: unset;
 }
 
@@ -364,6 +424,9 @@
   background-color: unset;
 }
 
+/* ======================================================
+// Focus styles
+// ------------------------------------------------------ */
 :where(:-moz-focusring) {
   /* Improve outlines for Firefox and unify style with input elements & buttons. */
   outline: auto;
@@ -384,23 +447,10 @@
   outline: none !important;
 }
 
+/* ======================================================
+// Misc
+// ------------------------------------------------------ */
 [hidden]:not([hidden='until-found']) {
   /* Ensure elements intended to be hidden are not displayed, enhancing clarity and layout control. */
   display: none !important;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  ::before,
-  ::after,
-  ::backdrop {
-    /* Disable animations and transitions for users who prefer reduced motion. */
-    background-attachment: scroll !important;
-    scroll-behavior: auto !important;
-    transition-delay: 0s !important;
-    transition-duration: 1ms !important;
-    animation-duration: 1ms !important;
-    animation-delay: 0s !important;
-    animation-iteration-count: 1 !important;
-  }
 }
