@@ -1,0 +1,21 @@
+{
+  "name": "taks-custom-base-css",
+  "version": "1.0.0",
+  "description": "This CSS is built based on Normalize.css. It aims to normalize styles for better cross-browser compatibility and to remove default browser styling.",
+  "main": "taks-custom-base.css",
+  "style": "taks-custom-base.css",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tak-dcxi/taks-custom-base-css.git"
+  },
+  "keywords": [
+    "css",
+    "reset-css",
+    "normalize-css",
+    "taks-custom-base-css"
+  ],
+  "author": "TAK",
+  "license": "MIT",
+  "bugs": "https://github.com/tak-dcxi/taks-custom-base-css/issues",
+  "homepage": "https://github.com/tak-dcxi/taks-custom-base-css#readme"
+}
