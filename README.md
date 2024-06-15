@@ -19,8 +19,19 @@ TAK's Custom Base.css is a CSS library designed to normalize styles and ensure c
 
 ## Installation
 
+### NPM
+
 ```bash
-npm install --save taks-custom-base.css
+npm install --save taks-custom-base-css
+```
+
+### CDN
+
+```html
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/taks-custom-base-css@latest/taks-custom-base.css"
+/>
 ```
 
 ## Usage
@@ -28,7 +39,7 @@ npm install --save taks-custom-base.css
 Place this CSS file in the appropriate location in your project and add a link to it in the `<head>` section of your HTML file.
 
 ```html
-<link rel="stylesheet" href="path/to/taks-custom-normalize.css" />
+<link rel="stylesheet" href="path/to/taks-custom-base.css" />
 ```
 
 ## License
