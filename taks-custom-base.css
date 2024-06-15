@@ -1,4 +1,4 @@
-/*! TAK's Custom Base.css v1.1.1 | MIT License | github.com/tak-dcxi/taks-custom-base-css */
+/*! TAK's Custom Base.css v1.2.0 | MIT License | github.com/tak-dcxi/taks-custom-base-css */
 
 /* ======================================================
 //
@@ -121,7 +121,7 @@
 }
 
 /* ======================================================
-// Grouping contents
+// Grouping content
 // ------------------------------------------------------ */
 :where(p, hr, pre, blockquote, ul, ol, dl, figure) {
   /* Reset default margin. */
@@ -149,23 +149,6 @@
 /* ======================================================
 // Text-level semantics
 // ------------------------------------------------------ */
-:where(:any-link) {
-  /* Remove any default background colors. */
-  background-color: unset;
-
-  /* Reset text color to default or inherited value. */
-  color: unset;
-
-  /* Remove underline from links. */
-  text-decoration-line: none;
-
-  /* Set the thickness of the text decoration based on the font metrics. */
-  text-decoration-thickness: from-font;
-
-  /* Position the underline slightly away from the text for enhanced legibility. */
-  text-underline-offset: 0.25em;
-}
-
 :where(b, strong) {
   /* Enhance the weight of bold elements for emphasis. */
   font-weight: 700;
@@ -185,6 +168,26 @@
 }
 
 /* ======================================================
+// Links
+// ------------------------------------------------------ */
+:where(:any-link) {
+  /* Remove any default background colors. */
+  background-color: unset;
+
+  /* Reset text color to default or inherited value. */
+  color: unset;
+
+  /* Remove underline from links. */
+  text-decoration-line: none;
+
+  /* Set the thickness of the text decoration based on the font metrics. */
+  text-decoration-thickness: from-font;
+
+  /* Position the underline slightly away from the text for enhanced legibility. */
+  text-underline-offset: 0.25em;
+}
+
+/* ======================================================
 // Edits
 // ------------------------------------------------------ */
 :where(ins) {
@@ -201,7 +204,7 @@
 }
 
 /* ======================================================
-// Embedded contents
+// Embedded content
 // ------------------------------------------------------ */
 :where(img, svg, video, canvas, audio, iframe, embed, object) {
   /* Set elements to display as block-level flow containers, suitable for complex layouts. */
@@ -220,7 +223,7 @@
 }
 
 /* ======================================================
-// Tables
+// Tabular data
 // ------------------------------------------------------ */
 :where(table) {
   /* Remove default margin. */
@@ -309,22 +312,10 @@
   touch-action: manipulation;
 }
 
-:where(button,
-  [type='button'],
-  [type='reset'],
-  [type='submit'],
-  label[for],
-  select,
-  [role='tab'],
-  [role='button']),
+:where(button, [type='button'], [type='reset'], [type='submit'], label[for], select, [role='tab'], [role='button']),
 ::file-selector-button {
   /* Indicate clickable elements with a pointer cursor. */
   cursor: pointer;
-}
-
-:where(:disabled) {
-  /* Show default cursor for disabled elements to reflect their non-interactive state. */
-  cursor: default;
 }
 
 :where(select:disabled) {
@@ -450,6 +441,11 @@
 /* ======================================================
 // Misc
 // ------------------------------------------------------ */
+:where(:disabled) {
+  /* Show default cursor for disabled elements to reflect their non-interactive state. */
+  cursor: default;
+}
+
 [hidden]:not([hidden='until-found']) {
   /* Ensure elements intended to be hidden are not displayed, enhancing clarity and layout control. */
   display: none !important;

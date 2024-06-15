@@ -14,6 +14,7 @@ TAK's Custom Base.css is a CSS library designed to normalize styles and ensure c
 - Utilizes a common sans-serif font stack for broader cross-platform compatibility.
 - Enhances readability by adjusting line spacing and underlines.
 - Adds transparent borders where necessary to accommodate forced color modes.
+- Prioritizes the use of logical properties to enhance layout direction independence and maintain styling consistency across different writing modes.
 - Supports modern elements and attributes like `dialog`, `search`, `[popover]`, and `[hidden="until-found"]`.
 - Prevents VoiceOver in Safari from recognizing list elements with `list-style: none` as a list by using `list-style-type: ""` to hide them.
 
