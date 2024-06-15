@@ -178,7 +178,8 @@
   touch-action: manipulation;
 }
 
-:where(button, input, optgroup, select, textarea), ::file-selector-button {
+:where(button, input, optgroup, select, textarea),
+::file-selector-button {
   /* Removes default margin. */
   margin: unset;
 
@@ -213,6 +214,21 @@
   text-transform: unset;
 }
 
+:where(:any-link,
+  button,
+  [type='button'],
+  [type='reset'],
+  [type='submit'],
+  label[for],
+  select,
+  summary,
+  [role='tab'],
+  [role='button']),
+::file-selector-button {
+  /* Indicate clickable elements with a pointer cursor. */
+  cursor: pointer;
+}
+
 :where(textarea) {
   /* Allows resizing of textarea vertically only */
   resize: block;
@@ -223,29 +239,9 @@
   opacity: initial;
 }
 
-:where(:any-link,
-  button,
-  [type='button'],
-  [type='reset'],
-  [type='submit'],
-  label[for],
-  select,
-  summary,
-  [role='tab'],
-  [role='button']) {
-  /* Indicate clickable elements with a pointer cursor. */
-  cursor: pointer;
-}
-
 :where(input[type='file']) {
   /* Default cursor for file input fields. */
   cursor: auto;
-}
-
-:where(input[type='file'])::-webkit-file-upload-button,
-:where(input[type='file'])::file-selector-button {
-  /* Indicate that the file upload buttons are clickable. */
-  cursor: pointer;
 }
 
 :where(:disabled) {
@@ -405,7 +401,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-
   *,
   ::before,
   ::after,
