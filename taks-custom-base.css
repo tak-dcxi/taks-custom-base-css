@@ -169,12 +169,16 @@
   display: block flow;
 }
 
-:where(button, [type='button'], [type='reset'], [type='submit']) {
+:where(button, [type='button'], [type='reset'], [type='submit']),
+::file-selector-button {
+  /* Set the inline-size of the button to match the content's inline-size exactly */
+  inline-size: fit-content;
+
   /* Optimizes touch interaction for buttons. */
   touch-action: manipulation;
 }
 
-:where(button, input, optgroup, select, textarea) {
+:where(button, input, optgroup, select, textarea), ::file-selector-button {
   /* Removes default margin. */
   margin: unset;
 
@@ -219,7 +223,7 @@
   opacity: initial;
 }
 
-:where( :any-link,
+:where(:any-link,
   button,
   [type='button'],
   [type='reset'],
