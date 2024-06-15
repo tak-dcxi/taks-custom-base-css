@@ -239,7 +239,7 @@
   opacity: initial;
 }
 
-:where(input[type='file']) {
+:where([type='file']) {
   /* Default cursor for file input fields. */
   cursor: auto;
 }
@@ -272,22 +272,12 @@
   padding: unset;
 }
 
-:where([type='search']) {
-  /* Tighten the outline around search inputs for better visual feedback. */
-  outline-offset: -2px;
-}
-
-:where([type='search'])::-webkit-search-decoration {
-  /* Remove default decoration from search inputs to simplify their appearance. */
-  appearance: none;
-}
-
 :where(summary) {
   /* Eliminate the default marker from details summary for a cleaner disclosure widget. */
   display: block flow;
 }
 
-:where(summary)::-webkit-details-marker {
+::-webkit-details-marker {
   /* Hide the default disclosure marker to allow for custom styling. */
   display: none;
 }
@@ -311,16 +301,15 @@
 }
 
 :where(th) {
+  /* Makes table header text bold */
   font-weight: 700;
 
-  /* Makes table header text bold */
-  text-align: start;
-
   /* Aligns header text to the start of the cell */
+  text-align: start;
 }
 
 :where(search) {
-  /* Sets search elements to display as block-level flow root */
+  /* Sets search elements to display as block-level */
   display: block flow;
 }
 
@@ -372,7 +361,7 @@
 
 ::backdrop {
   /* Remove default backdrop color for a clearer view of the underlying content. */
-  background-color: transparent;
+  background-color: unset;
 }
 
 :where(:-moz-focusring) {
