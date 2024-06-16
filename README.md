@@ -30,7 +30,7 @@ npm install --save taks-custom-base-css
 ```html
 <link
   rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/taks-custom-base-css@1.2.1/taks-custom-base.css"
+  href="https://cdn.jsdelivr.net/npm/taks-custom-base-css/taks-custom-base.css"
 />
 ```
 
