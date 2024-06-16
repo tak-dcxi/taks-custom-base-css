@@ -8,7 +8,6 @@ TAK's Custom Base.css is a CSS library designed to normalize styles and ensure c
 
 - Ensures as much consistency as possible across browsers.
 - Prevents the need to reset user agent styles.
-- Removes default margins and padding.
 - Uses the `:where()` pseudo-class to reduce specificity conflicts.
 - Applies `box-sizing: border-box` to all elements so padding and borders are included in element dimensions.
 - Utilizes a common sans-serif font stack for broader cross-platform compatibility.
@@ -31,7 +30,7 @@ npm install --save taks-custom-base-css
 ```html
 <link
   rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/taks-custom-base-css/taks-custom-base.css"
+  href="https://cdn.jsdelivr.net/npm/taks-custom-base-css@1.2.1/taks-custom-base.css"
 />
 ```
 
