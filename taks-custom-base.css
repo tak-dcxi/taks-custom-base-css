@@ -1,4 +1,4 @@
-/*! TAK's Custom Base.css v1.2.0 | MIT License | github.com/tak-dcxi/taks-custom-base-css */
+/*! TAK's Custom Base.css v1.2.1 | MIT License | github.com/tak-dcxi/taks-custom-base-css */
 
 /* ======================================================
 //
@@ -52,7 +52,7 @@
     sans-serif;
 
   /* Normalize font-style. */
-  font-style: normal;
+  font-style: unset;
 
   /* Normalize font-weight. */
   font-weight: 400;
@@ -63,19 +63,19 @@
   /* Align text to the start of the element, accommodating left-to-right and right-to-left languages. */
   text-align: start;
 
-  /* Remove leading white space for a cleaner text alignment */
+  /* Remove leading white space for a cleaner text alignment. */
   text-spacing-trim: trim-start;
 
-  /* Use the browser's default method to determine word breaking */
+  /* Use the browser's default method to determine word breaking. */
   word-break: initial;
 
-  /* Apply strict line breaking rules to enhance readability in languages that require it */
+  /* Apply strict line breaking rules to enhance readability in languages that require it. */
   line-break: strict;
 
-  /* Allow long words to be broken and wrapped at any point to prevent overflow */
+  /* Allow long words to be broken and wrapped at any point to prevent overflow. */
   overflow-wrap: anywhere;
 
-  /* Automatically insert hyphens where appropriate for better text flow and alignment */
+  /* Automatically insert hyphens where appropriate for better text flow and alignment. */
   hyphens: auto;
 
   /* Prevent mobile browsers from scaling text sizes automatically. */
@@ -90,7 +90,7 @@
 // Sections
 // ------------------------------------------------------ */
 :where(body) {
-  /* 100% of the viewport's block size. */
+  /* Ensures the body element occupies at least 100% of the viewport's block size. */
   min-block-size: 100svb;
 
   /* Reset default margin. */
@@ -99,7 +99,7 @@
 
 :where(h1, h2, h3, h4, h5, h6) {
   /* Reset default margin. */
-  margin: unset;
+  margin-block: unset;
 
   /* Reset default font-size. */
   font-size: unset;
@@ -112,12 +112,12 @@
 
 :where(address) {
   /* Reset default margin. */
-  margin: unset;
+  margin-block: unset;
 }
 
 :where(address):where(:lang(ja)) {
   /* Reset font style for specific Japanese language elements. */
-  font-style: normal;
+  font-style: unset;
 }
 
 /* ======================================================
@@ -125,7 +125,7 @@
 // ------------------------------------------------------ */
 :where(p, hr, pre, blockquote, ul, ol, dl, figure) {
   /* Reset default margin. */
-  margin: unset;
+  margin-block: unset;
 }
 
 :where(ul, ol) {
@@ -146,17 +146,22 @@
   margin-inline-start: unset;
 }
 
+:where(hr) {
+  /* Sets the thickness of the top border of the <hr> element to 1px. */
+  border-block-start-width: 1px;
+}
+
 /* ======================================================
 // Text-level semantics
 // ------------------------------------------------------ */
-:where(b, strong) {
+:where(b, strong, em) {
   /* Enhance the weight of bold elements for emphasis. */
   font-weight: 700;
 }
 
-:where(i, cite, em):where(:lang(ja)) {
+:where(i, cite, em, dfn):where(:lang(ja)) {
   /* Reset font style for specific Japanese language elements. */
-  font-style: normal;
+  font-style: unset;
 }
 
 :where(code) {
@@ -262,11 +267,12 @@
   /* Removes default margin. */
   margin: unset;
 
-  /* Removes default padding. */
+  /* Remove default padding. */
   padding: unset;
 
   /* Apply a transparent border for forced colors mode. */
-  border: 1px solid transparent;
+  border-width: 1px;
+  border-color: transparent;
 
   /* Resets border-radius to default. */
   border-radius: unset;
@@ -321,21 +327,6 @@
 :where(select:disabled) {
   /* Keep the opacity of disabled selects consistent with other disabled elements. */
   opacity: inherit;
-}
-
-:where(option) {
-  /* Remove any default padding from options for cleaner drop-down menus. */
-  padding: unset;
-}
-
-:where(fieldset) {
-  /* Remove default margin. */
-  margin: unset;
-}
-
-:where(fieldset[role]) {
-  /* When the <fieldset>element has a 'role' attribute, it does not generate a box. */
-  display: contents;
 }
 
 :where(legend) {
