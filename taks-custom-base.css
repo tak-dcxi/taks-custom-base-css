@@ -1,4 +1,4 @@
-/*! TAK's Custom Base.css v1.2.1 | MIT License | github.com/tak-dcxi/taks-custom-base-css */
+/*! TAK's Custom Base.css v1.2.2 | MIT License | github.com/tak-dcxi/taks-custom-base-css */
 
 /* ======================================================
 //
@@ -110,9 +110,17 @@
   display: block flow;
 }
 
-:where(address) {
-  /* Reset default margin. */
+/* ======================================================
+// Grouping content
+// ------------------------------------------------------ */
+:where(p, blockquote, figure, pre, address, ul, ol, dl) {
+  /* Reset default margin-block. */
   margin-block: unset;
+}
+
+:where(blockquote, figure) {
+  /* Reset default margin-inline. */
+  margin-inline: unset;
 }
 
 :where(address):where(:lang(ja)) {
@@ -120,17 +128,9 @@
   font-style: unset;
 }
 
-/* ======================================================
-// Grouping content
-// ------------------------------------------------------ */
-:where(p, hr, pre, blockquote, ul, ol, dl, figure) {
-  /* Reset default margin. */
-  margin-block: unset;
-}
-
 :where(ul, ol) {
-  /* Remove default padding. */
-  padding: unset;
+  /* Remove default padding-inline-start. */
+  padding-inline-start: unset;
 
   /* In Safari, using 'list-style: none' causes the list not to be announced by screen readers, so use 'list-style-type: ""' to hide markers without affecting accessibility. */
   list-style-type: '';
@@ -151,25 +151,81 @@
   border-block-start-width: 1px;
 }
 
+:where(pre) {
+  /* Sets the tab character width to 2 spaces for better readability in preformatted text. */
+  tab-size: 2;
+}
+
 /* ======================================================
 // Text-level semantics
 // ------------------------------------------------------ */
-:where(b, strong, em) {
+:where(b, strong) {
   /* Enhance the weight of bold elements for emphasis. */
   font-weight: 700;
 }
 
-:where(i, cite, em, dfn):where(:lang(ja)) {
+:where(em):where(:lang(ja)) {
+  /* Enhance the weight of bold elements for emphasis. */
+  font-weight: 700;
+}
+
+:where(i, cite, em, dfn, var):where(:lang(ja)) {
   /* Reset font style for specific Japanese language elements. */
   font-style: unset;
 }
 
-:where(code) {
+:where(code, kbd, samp) {
   /* Set the monospace font using Tailwind as a reference. (https: //tailwindcss.com/docs/font-family) */
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
 
   /* Reset font size to ensure consistent appearance across different devices. */
   font-size: unset;
+}
+
+:where(cite, dfn)::before {
+  /* Inserts an opening quotation mark before the content of <cite> and <dfn> elements, defaulting to a double quote unless overridden. */
+  content: var(--_quotation-start, '“');
+}
+
+:where(cite, dfn)::after {
+  /* Inserts a closing quotation mark after the content of <cite> and <dfn> elements, defaulting to a double quote unless overridden. */
+  content: var(--_quotation-end, '”');
+}
+
+:where(cite, dfn):where(:lang(ja)) {
+  /* Overrides the default opening quotation mark with the Japanese opening quote for <cite> and <dfn> elements in Japanese. */
+  --_quotation-start: '「';
+  --_quotation-end: '」';
+}
+
+:where(var) {
+  /* Sets the font family to serif for <var> elements, enhancing the typographic distinction of variable names in technical content. */
+  font-family: serif;
+}
+
+@supports (text-decoration-color: color-mix(in sRGB, Mark, transparent)) {
+  :where(mark) {
+    /* Remove any default background colors. */
+    background-color: unset;
+
+    /* Reset text color to default or inherited value. */
+    color: unset;
+
+    /* Applies an underline to the text to highlight it. */
+    text-decoration-line: underline;
+
+    /* Sets the color of the underline using a mix of the 'Mark' color and transparency. */
+    text-decoration-color: color-mix(in sRGB, Mark, transparent 50%);
+
+    /* Specifies the thickness of the underline. */
+    text-decoration-thickness: 0.4em;
+
+    /* Adjusts the position of the underline closer to the text. */
+    text-underline-offset: -0.2em;
+
+    /* Ensures the underline is not broken by descenders in characters like g, j, p, q, and y. */
+    text-decoration-skip-ink: none;
+  }
 }
 
 /* ======================================================
@@ -211,7 +267,7 @@
 /* ======================================================
 // Embedded content
 // ------------------------------------------------------ */
-:where(img, svg, video, canvas, audio, iframe, embed, object) {
+:where(img, video, canvas, audio, iframe, embed, object) {
   /* Set elements to display as block-level flow containers, suitable for complex layouts. */
   display: block flow;
 
@@ -227,13 +283,15 @@
   max-inline-size: 100%;
 }
 
+:where(svg) {
+  /* Align these elements vertically to the middle of their containing line. */
+  vertical-align: middle;
+}
+
 /* ======================================================
 // Tabular data
 // ------------------------------------------------------ */
 :where(table) {
-  /* Remove default margin. */
-  margin: unset;
-
   /* Collapses border for a more compact table design. */
   border-collapse: collapse;
 }
@@ -262,11 +320,8 @@
 /* ======================================================
 // Forms
 // ------------------------------------------------------ */
-:where(button, input, optgroup, select, textarea),
+:where(button, input, select, textarea),
 ::file-selector-button {
-  /* Removes default margin. */
-  margin: unset;
-
   /* Remove default padding. */
   padding: unset;
 
@@ -299,17 +354,25 @@
   text-transform: unset;
 }
 
+:where([type='radio' i], [type='checkbox' i]) {
+  /* Remove default margin. */
+  margin: unset;
+}
+
+:where([type='file' i]) {
+  /* Default cursor for file input fields. */
+  cursor: unset;
+}
+
 :where(textarea) {
+  /* Remove default margin in Firefox. */
+  margin-block: unset;
+
   /* Allows resizing of textarea vertically only. */
   resize: block;
 }
 
-:where([type='file']) {
-  /* Default cursor for file input fields. */
-  cursor: auto;
-}
-
-:where(button, [type='button'], [type='reset'], [type='submit']),
+:where(button),
 ::file-selector-button {
   /* Set the inline-size of the button to match the content's inline-size exactly. */
   inline-size: fit-content;
@@ -318,7 +381,12 @@
   touch-action: manipulation;
 }
 
-:where(button, [type='button'], [type='reset'], [type='submit'], label[for], select, [role='tab'], [role='button']),
+:where(button)::-moz-focus-inner {
+  /* Remove the inner padding in Firefox. */
+  padding: unset;
+}
+
+:where(button, label[for], select, [role='tab'], [role='button']),
 ::file-selector-button {
   /* Indicate clickable elements with a pointer cursor. */
   cursor: pointer;
@@ -329,14 +397,27 @@
   opacity: inherit;
 }
 
-:where(legend) {
+:where(fieldset) {
+  /* Remove default margin-inline. */
+  margin-inline: unset;
+
   /* Remove default padding. */
   padding: unset;
 }
 
+:where(legend) {
+  /* Remove default padding-inline. */
+  padding-inline: unset;
+}
+
+:where(optgroup) {
+  /* Resets font settings to inherit from parent. */
+  font: unset;
+}
+
 ::placeholder {
   /* Normalize the opacity of placeholder text to fully opaque in Firefox, where it might be set to less by default. */
-  opacity: initial;
+  opacity: unset;
 }
 
 /* ======================================================
@@ -410,7 +491,7 @@
 // Focus styles
 // ------------------------------------------------------ */
 :where(:-moz-focusring) {
-  /* Improve outlines for Firefox and unify style with input elements & buttons. */
+  /* Improve outlines for Firefox and unify style with input elements and buttons. */
   outline: auto;
 }
 
