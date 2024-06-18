@@ -1,4 +1,4 @@
-/*! TAK's Custom Base.css v1.2.2 | MIT License | github.com/tak-dcxi/taks-custom-base-css */
+/*! TAK's Custom Base.css v1.2.3 | MIT License | github.com/tak-dcxi/taks-custom-base-css */
 
 /* ======================================================
 //
@@ -40,6 +40,7 @@
     animation-duration: 1ms !important;
     animation-delay: 0s !important;
     animation-iteration-count: 1 !important;
+    view-transition-name: none !important;
   }
 }
 
