@@ -569,6 +569,24 @@
   display: none !important;
 }
 
+/* Fallback trick for hover states. */
+:where(:any-link, :enabled, summary) {
+  --is-hover-true: ;
+  --is-hover-false: initial;
+}
+
+:where(:where(:any-link, :enabled, summary):focus-visible) {
+  --is-hover-true: initial;
+  --is-hover-false: ;
+}
+
+@media (any-hover: hover) {
+  :where(:where(:any-link, :enabled, summary):hover) {
+    --is-hover-true: initial;
+    --is-hover-false: ;
+  }
+}
+
 /* ======================================================
 // Utility Classes
 // ------------------------------------------------------ */
