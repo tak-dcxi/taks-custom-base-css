@@ -16,6 +16,8 @@ TAK's Custom Base.css is a CSS library designed to normalize styles and ensure c
 - Prioritizes the use of logical properties to enhance layout direction independence and maintain styling consistency across different writing modes.
 - Supports modern elements and attributes like `dialog`, `search`, `[popover]`, and `[hidden="until-found"]`.
 - Prevents VoiceOver in Safari from recognizing list elements with `list-style: none` as a list by using `list-style-type: ""` to hide them.
+- Prepared a custom property in CSS to remove the half-leading in `line-height` and custom easing functions.
+- Prepared utility classes for `leading-trim` and `visually-hidden`.
 
 ## Installation
 
