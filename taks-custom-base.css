@@ -1,4 +1,4 @@
-/*! TAK's Custom Base.css v1.2.4 | MIT License | github.com/tak-dcxi/taks-custom-base-css */
+/*! TAK's Custom Base.css v1.2.5 | MIT License | github.com/tak-dcxi/taks-custom-base-css */
 
 /* ======================================================
 //
@@ -49,7 +49,9 @@
 // ------------------------------------------------------ */
 :where(:root) {
   /* This ensures that the vertical space is evenly distributed, improving the visual balance of text. (https: //www.tak-dcxi.com/article/use-line-height-trim-as-css-variable) */
-  --leading-trim: calc((1em - 1lh) / 2);
+  --is-support-lh: initial;
+  --is-support-not-lh: ;
+  --leading-trim: var(--is-support-lh, calc((1em - 1lh) / 2)) var(--is-support-not-lh, 0px);
 
   /* Custom easing functions using cubic-bezier. */
   --ease-in-sine: cubic-bezier(0.47, 0, 0.745, 0.715);
@@ -118,14 +120,15 @@
 
 :where(:lang(en)) {
   /* This ensures that the vertical space is evenly distributed, improving the visual balance of text. (https: //www.tak-dcxi.com/article/use-line-height-trim-as-css-variable) */
-  --leading-trim: calc((1cap - 1lh) / 2);
+  --leading-trim: var(--is-support-lh, calc((1cap - 1lh) / 2)) var(--is-support-not-lh, 0px);
 }
 
 @supports not (top: 1lh) {
   /* this CSS code sets the --leading-trim variable to 0px in browsers that do not support the 1lh unit for the top property,
     ensuring fallback compatibility. */
   :where(:root) {
-    --leading-trim: 0px;
+    --is-support-lh: ;
+    --is-support-not-lh: initial;
   }
 }
 
@@ -564,6 +567,24 @@
 [hidden]:not([hidden='until-found']) {
   /* Ensure elements intended to be hidden are not displayed, enhancing clarity and layout control. */
   display: none !important;
+}
+
+/* Fallback trick for hover states. */
+:where(:any-link, :enabled, summary) {
+  --is-hover-true: ;
+  --is-hover-false: initial;
+}
+
+:where(:where(:any-link, :enabled, summary):focus-visible) {
+  --is-hover-true: initial;
+  --is-hover-false: ;
+}
+
+@media (any-hover: hover) {
+  :where(:where(:any-link, :enabled, summary):hover) {
+    --is-hover-true: initial;
+    --is-hover-false: ;
+  }
 }
 
 /* ======================================================
