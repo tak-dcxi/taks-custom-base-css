@@ -1,4 +1,4 @@
-/*! TAK's Custom Base.css v1.2.5 | MIT License | github.com/tak-dcxi/taks-custom-base-css */
+/*! TAK's Custom Base.css v1.2.6 | MIT License | github.com/tak-dcxi/taks-custom-base-css */
 
 /* ======================================================
 //
@@ -33,13 +33,13 @@
   ::after,
   ::backdrop {
     /* Disable animations and transitions for users who prefer reduced motion. */
-    background-attachment: scroll !important;
-    scroll-behavior: auto !important;
-    transition-delay: 0s !important;
+    background-attachment: unset !important;
+    scroll-behavior: unset !important;
+    transition-delay: unset !important;
     transition-duration: 1ms !important;
     animation-duration: 1ms !important;
-    animation-delay: 0s !important;
-    animation-iteration-count: 1 !important;
+    animation-delay: unset !important;
+    animation-iteration-count: unset !important;
     view-transition-name: none !important;
   }
 }
@@ -48,37 +48,6 @@
 // Document
 // ------------------------------------------------------ */
 :where(:root) {
-  /* This ensures that the vertical space is evenly distributed, improving the visual balance of text. (https: //www.tak-dcxi.com/article/use-line-height-trim-as-css-variable) */
-  --is-support-lh: initial;
-  --is-support-not-lh: ;
-  --leading-trim: var(--is-support-lh, calc((1em - 1lh) / 2)) var(--is-support-not-lh, 0px);
-
-  /* Custom easing functions using cubic-bezier. */
-  --ease-in-sine: cubic-bezier(0.47, 0, 0.745, 0.715);
-  --ease-out-sine: cubic-bezier(0.39, 0.575, 0.565, 1);
-  --ease-in-out-sine: cubic-bezier(0.445, 0.05, 0.55, 0.95);
-  --ease-in-quad: cubic-bezier(0.55, 0.085, 0.68, 0.53);
-  --ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  --ease-in-out-quad: cubic-bezier(0.455, 0.03, 0.515, 0.955);
-  --ease-in-cubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
-  --ease-out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1);
-  --ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1);
-  --ease-in-quart: cubic-bezier(0.895, 0.03, 0.685, 0.22);
-  --ease-out-quart: cubic-bezier(0.165, 0.84, 0.44, 1);
-  --ease-in-out-quart: cubic-bezier(0.77, 0, 0.175, 1);
-  --ease-in-quint: cubic-bezier(0.755, 0.05, 0.855, 0.06);
-  --ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
-  --ease-in-out-quint: cubic-bezier(0.86, 0, 0.07, 1);
-  --ease-in-expo: cubic-bezier(0.95, 0.05, 0.795, 0.035);
-  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
-  --ease-in-out-expo: cubic-bezier(1, 0, 0, 1);
-  --ease-in-circ: cubic-bezier(0.6, 0.04, 0.98, 0.335);
-  --ease-out-circ: cubic-bezier(0.075, 0.82, 0.165, 1);
-  --ease-in-out-circ: cubic-bezier(0.785, 0.135, 0.15, 0.86);
-  --ease-in-back: cubic-bezier(0.6, -0.28, 0.735, 0.045);
-  --ease-out-back: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  --ease-in-out-back: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-
   /* Use a common sans-serif font stack for better cross-platform compatibility. */
   font-family: 'Helvetica Neue', arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'BIZ UDPGothic', meiryo,
     sans-serif;
@@ -118,17 +87,187 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-:where(:lang(en)) {
-  /* This ensures that the vertical space is evenly distributed, improving the visual balance of text. (https: //www.tak-dcxi.com/article/use-line-height-trim-as-css-variable) */
-  --leading-trim: var(--is-support-lh, calc((1cap - 1lh) / 2)) var(--is-support-not-lh, 0px);
+/* ======================================================
+// Custom Properties
+// ------------------------------------------------------ */
+
+/* Easing Function */
+@property --ease-in-sine {
+  syntax: '*';
+  inherits: false;
+  initial-value: cubic-bezier(0.47, 0, 0.745, 0.715);
 }
 
-@supports not (top: 1lh) {
-  /* this CSS code sets the --leading-trim variable to 0px in browsers that do not support the 1lh unit for the top property,
-    ensuring fallback compatibility. */
+@property --ease-out-sine {
+  syntax: '*';
+  inherits: false;
+  initial-value: cubic-bezier(0.39, 0.575, 0.565, 1);
+}
+
+@property --ease-in-out-sine {
+  syntax: '*';
+  inherits: false;
+  initial-value: cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+
+@property --ease-in-quad {
+  syntax: '*';
+  inherits: false;
+  initial-value: cubic-bezier(0.55, 0.085, 0.68, 0.53);
+}
+
+@property --ease-out-quad {
+  syntax: '*';
+  inherits: false;
+  initial-value: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@property --ease-in-out-quad {
+  syntax: '*';
+  inherits: false;
+  initial-value: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+}
+
+@property --ease-in-cubic {
+  syntax: '*';
+  inherits: false;
+  initial-value: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+}
+
+@property --ease-out-cubic {
+  syntax: '*';
+  inherits: false;
+  initial-value: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+@property --ease-in-out-cubic {
+  syntax: '*';
+  inherits: false;
+  initial-value: cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+@property --ease-in-quart {
+  syntax: '*';
+  inherits: false;
+  initial-value: cubic-bezier(0.895, 0.03, 0.685, 0.22);
+}
+
+@property --ease-out-quart {
+  syntax: '*';
+  inherits: false;
+  initial-value: cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+@property --ease-in-out-quart {
+  syntax: '*';
+  inherits: false;
+  initial-value: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+@property --ease-in-quint {
+  syntax: '*';
+  inherits: false;
+  initial-value: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+}
+
+@property --ease-out-quint {
+  syntax: '*';
+  inherits: false;
+  initial-value: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@property --ease-in-out-quint {
+  syntax: '*';
+  inherits: false;
+  initial-value: cubic-bezier(0.86, 0, 0.07, 1);
+}
+
+@property --ease-in-expo {
+  syntax: '*';
+  inherits: false;
+  initial-value: cubic-bezier(0.95, 0.05, 0.795, 0.035);
+}
+
+@property --ease-out-expo {
+  syntax: '*';
+  inherits: false;
+  initial-value: cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+@property --ease-in-out-expo {
+  syntax: '*';
+  inherits: false;
+  initial-value: cubic-bezier(1, 0, 0, 1);
+}
+
+@property --ease-in-circ {
+  syntax: '*';
+  inherits: false;
+  initial-value: cubic-bezier(0.6, 0.04, 0.98, 0.335);
+}
+
+@property --ease-out-circ {
+  syntax: '*';
+  inherits: false;
+  initial-value: cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+@property --ease-in-out-circ {
+  syntax: '*';
+  inherits: false;
+  initial-value: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+}
+
+@property --ease-in-back {
+  syntax: '*';
+  inherits: false;
+  initial-value: cubic-bezier(0.6, -0.28, 0.735, 0.045);
+}
+
+@property --ease-out-back {
+  syntax: '*';
+  inherits: false;
+  initial-value: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@property --ease-in-out-back {
+  syntax: '*';
+  inherits: false;
+  initial-value: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Leading Trim */
+:where(:root) {
+  --leading-trim: 0px;
+}
+
+@supports (top: 1lh) {
   :where(:root) {
-    --is-support-lh: ;
-    --is-support-not-lh: initial;
+    /* This ensures that the vertical space is evenly distributed, improving the visual balance of text. (https: //www.tak-dcxi.com/article/use-line-height-trim-as-css-variable) */
+    --leading-trim: calc((1em - 1lh) / 2);
+  }
+
+  :where(:lang(en)) {
+    /* This ensures that the vertical space is evenly distributed, improving the visual balance of text. (https: //www.tak-dcxi.com/article/use-line-height-trim-as-css-variable) */
+    --leading-trim: calc((1cap - 1lh) / 2);
+  }
+}
+
+/* Hover States */
+:where(:any-link, :enabled, summary) {
+  --is-hover-true: ;
+  --is-hover-false: initial;
+}
+
+:where(:where(:any-link, :enabled, summary):focus-visible) {
+  --is-hover-true: initial;
+  --is-hover-false: ;
+}
+
+@media (any-hover: hover) {
+  :where(:where(:any-link, :enabled, summary):hover) {
+    --is-hover-true: initial;
+    --is-hover-false: ;
   }
 }
 
@@ -313,25 +452,15 @@
 /* ======================================================
 // Embedded content
 // ------------------------------------------------------ */
-:where(img, video, canvas, audio, iframe, embed, object) {
+:where(img, svg, video, canvas, audio, iframe, embed, object) {
   /* Set elements to display as block-level flow containers, suitable for complex layouts. */
   display: block flow;
 
-  /* Align these elements vertically to the middle of their containing line. */
-  vertical-align: middle;
-}
-
-:where(img, svg, video) {
-  /* Automatically adjusts the block size based on content. */
-  block-size: auto;
-
   /* Limits the maximum size inline to prevent overflow. */
   max-inline-size: 100%;
-}
 
-:where(svg) {
-  /* Align these elements vertically to the middle of their containing line. */
-  vertical-align: middle;
+  /* Automatically adjusts the block size based on content. */
+  block-size: auto;
 }
 
 /* ======================================================
@@ -569,24 +698,6 @@
   display: none !important;
 }
 
-/* Fallback trick for hover states. */
-:where(:any-link, :enabled, summary) {
-  --is-hover-true: ;
-  --is-hover-false: initial;
-}
-
-:where(:where(:any-link, :enabled, summary):focus-visible) {
-  --is-hover-true: initial;
-  --is-hover-false: ;
-}
-
-@media (any-hover: hover) {
-  :where(:where(:any-link, :enabled, summary):hover) {
-    --is-hover-true: initial;
-    --is-hover-false: ;
-  }
-}
-
 /* ======================================================
 // Utility Classes
 // ------------------------------------------------------ */
@@ -612,12 +723,11 @@
   position: fixed !important;
   inset: 0 !important;
   contain: strict !important;
-  display: block flow !important;
   visibility: visible !important;
   inline-size: 4px !important;
-  block-size: 4px !important;
-  margin: 0 !important;
-  padding: 0 !important;
+  aspect-ratio: 1 !important;
+  margin: unset !important;
+  padding: unset !important;
   border: none !important;
   opacity: 0 !important;
   pointer-events: none !important;
