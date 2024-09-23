@@ -1,4 +1,4 @@
-/*! TAK's Custom Base.css v1.2.6 | MIT License | github.com/tak-dcxi/taks-custom-base-css */
+/*! TAK's Custom Base.css v1.2.7 | MIT License | github.com/tak-dcxi/taks-custom-base-css */
 
 /* ======================================================
 //
@@ -78,6 +78,9 @@
 
   /* Automatically insert hyphens where appropriate for better text flow and alignment. */
   hyphens: auto;
+
+  /* Allow animations and transitions of intrinsic sizing keywords. */
+  interpolate-size: allow-keywords;
 
   /* Prevent mobile browsers from scaling text sizes automatically. */
   -webkit-text-size-adjust: 100%;
@@ -388,7 +391,7 @@
   font-family: serif;
 }
 
-@supports (text-decoration-color: color-mix(in sRGB, Mark, transparent)) {
+@media (forced-colors: none) {
   :where(mark) {
     /* Remove any default background colors. */
     background-color: unset;
@@ -400,7 +403,7 @@
     text-decoration-line: underline;
 
     /* Sets the color of the underline using a mix of the 'Mark' color and transparency. */
-    text-decoration-color: color-mix(in sRGB, Mark, transparent 50%);
+    text-decoration-color: oklch(from #ffff00 l c h / 0.5);
 
     /* Specifies the thickness of the underline. */
     text-decoration-thickness: 0.4em;
@@ -595,6 +598,14 @@
   opacity: unset;
 }
 
+::picker(select) {
+  /* Render the `: :picker(select)` pseudo element consistently. */
+  display: block flow;
+
+  /* Remove default padding. */
+  padding: unset;
+}
+
 /* ======================================================
 // Interactive elements
 // ------------------------------------------------------ */
@@ -702,20 +713,22 @@
 // Utility Classes
 // ------------------------------------------------------ */
 /* Create a pseudo-element to adjust the vertical space above and below an element. */
-.leading-trim::before,
-.leading-trim::after {
-  content: '';
-  display: block flow;
-  inline-size: 0;
-  block-size: 1px;
-}
+.leading-trim {
+  &::before,
+  &::after {
+    content: '';
+    display: block flow;
+    inline-size: 0;
+    block-size: 1px;
+  }
 
-.leading-trim::before {
-  margin-block-end: var(--leading-trim);
-}
+  &::before {
+    margin-block-end: var(--leading-trim);
+  }
 
-.leading-trim::after {
-  margin-block-start: var(--leading-trim);
+  &::after {
+    margin-block-start: var(--leading-trim);
+  }
 }
 
 /* Hide content visually but keep it accessible to screen readers. */
