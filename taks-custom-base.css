@@ -79,15 +79,35 @@
   /* Automatically insert hyphens where appropriate for better text flow and alignment. */
   hyphens: auto;
 
-  /* Allow animations and transitions of intrinsic sizing keywords. */
-  interpolate-size: allow-keywords;
-
   /* Prevent mobile browsers from scaling text sizes automatically. */
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
 
+  /* Preventing the layout shift caused by scrollbars. */
+  scrollbar-gutter: stable;
+
+  /* Allow animations and transitions of intrinsic sizing keywords. */
+  interpolate-size: allow-keywords;
+
   /* Eliminate the tap highlight color on mobile devices for a cleaner interface. */
   -webkit-tap-highlight-color: transparent;
+}
+
+:where(:root, body) {
+  /* Prevent scrolling along the inline axis (usually horizontal) for root and body. */
+  overflow-inline: clip;
+}
+
+@supports not (overflow-inline: clip) {
+  /* Prevent horizontal scrolling for root and body in browsers that don't support `overflow-inline`. */
+  :where(:root, body) {
+    overflow-x: clip;
+  }
+}
+
+:where(:root):has(:where(:modal)) {
+  /* Prevent scrolling of the document when a modal is open. */
+  overflow: hidden;
 }
 
 /* ======================================================
@@ -239,36 +259,73 @@
   initial-value: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-/* Leading Trim */
+/*
+Leading Trim Custom Properties
+
+You can use the `--leading-trim` custom property to adjust the vertical spacing of text elements.
+This helps in achieving more consistent and visually pleasing typography across different languages and font styles.
+
+Example usage:
+```
+p {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-block: var(--leading-trim);
+}
+```
+
+@see https://www.tak-dcxi.com/article/use-line-height-trim-as-css-variable
+*/
+
 :where(:root) {
+  /* Default value for browsers that don't support `lh` unit. This ensures that no trimming is applied when `lh` is not supported. */
   --leading-trim: 0px;
 }
 
 @supports (top: 1lh) {
   :where(:root) {
-    /* This ensures that the vertical space is evenly distributed, improving the visual balance of text. (https: //www.tak-dcxi.com/article/use-line-height-trim-as-css-variable) */
+    /* This ensures that the vertical space is evenly distributed, improving the visual balance of text. */
     --leading-trim: calc((1em - 1lh) / 2);
   }
 
   :where(:lang(en)) {
-    /* This ensures that the vertical space is evenly distributed, improving the visual balance of text. (https: //www.tak-dcxi.com/article/use-line-height-trim-as-css-variable) */
+    /* This ensures that the vertical space is evenly distributed, improving the visual balance of text. */
     --leading-trim: calc((1cap - 1lh) / 2);
   }
 }
 
-/* Hover States */
+/*
+Hover State Custom Properties
+
+You can use these custom properties to easily switch between hover and non-hover styles.
+The var() function will use the first non-empty value, allowing you to define both states in one line.
+
+Example usage:
+```
+.button {
+  --_background-lighten: var(--is-hover-false, 0%) var(--is-hover-true, 20%);
+
+  background-color: color-mix(in sRGB, var(--background-button), #fff var(--_background-lighten));
+}
+```
+
+*/
+
 :where(:any-link, :enabled, summary) {
+  /* Define custom properties for hover state on interactive elements. Default state: `--is-hover-true` is empty, `--is-hover-false` has a value. */
   --is-hover-true: ;
   --is-hover-false: initial;
 }
 
 :where(:where(:any-link, :enabled, summary):focus-visible) {
+  /* Set hover state for focus-visible state. Focus-visible state: `--is-hover-true` has a value, `--is-hover-false` is empty. */
   --is-hover-true: initial;
   --is-hover-false: ;
 }
 
 @media (any-hover: hover) {
   :where(:where(:any-link, :enabled, summary):hover) {
+    /* Set hover state for actual hover, but only on devices that support hover. Hover state: `--is-hover-true` has a value, `--is-hover-false` is empty. */
     --is-hover-true: initial;
     --is-hover-false: ;
   }
@@ -699,7 +756,7 @@
 /* ======================================================
 // Misc
 // ------------------------------------------------------ */
-:where(:disabled) {
+:where(:disabled, [aria-disabled='true']) {
   /* Show default cursor for disabled elements to reflect their non-interactive state. */
   cursor: default;
 }
@@ -713,22 +770,20 @@
 // Utility Classes
 // ------------------------------------------------------ */
 /* Create a pseudo-element to adjust the vertical space above and below an element. */
-.leading-trim {
-  &::before,
-  &::after {
-    content: '';
-    display: block flow;
-    inline-size: 0;
-    block-size: 1px;
-  }
+.leading-trim::before,
+.leading-trim::after {
+  content: '';
+  display: block flow;
+  inline-size: 0;
+  block-size: 1px;
+}
 
-  &::before {
-    margin-block-end: var(--leading-trim);
-  }
+.leading-trim::before {
+  margin-block-end: var(--leading-trim);
+}
 
-  &::after {
-    margin-block-start: var(--leading-trim);
-  }
+.leading-trim::after {
+  margin-block-start: var(--leading-trim);
 }
 
 /* Hide content visually but keep it accessible to screen readers. */
