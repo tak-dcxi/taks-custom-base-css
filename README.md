@@ -45,6 +45,18 @@ Place this CSS file in the appropriate location in your project and add a link t
 <link rel="stylesheet" href="path/to/taks-custom-base.css" />
 ```
 
+## Browser Compatibility
+
+TAK's Custom Base.css is designed to work with the following browsers:
+
+- Google Chrome (latest version)
+- Microsoft Edge (latest version)
+- Firefox (latest version)
+- MacOS Safari (latest version)
+- iOS Safari (version 16.7 and above)
+
+These browsers are officially supported and tested. While the stylesheet may work on other browsers or older versions, optimal performance and consistency are guaranteed on the versions listed above.
+
 ## License
 
 This project is released under the MIT License. For more details, refer to the GitHub repository.
