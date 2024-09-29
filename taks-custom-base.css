@@ -1,4 +1,4 @@
-/*! TAK's Custom Base.css v1.2.8 | MIT License | github.com/tak-dcxi/taks-custom-base-css */
+/*! TAK's Custom Base.css v1.3.0 | MIT License | github.com/tak-dcxi/taks-custom-base-css */
 
 /* ======================================================
 //
@@ -45,18 +45,17 @@
 }
 
 /* ======================================================
-// Document
+// Root and body elements
 // ------------------------------------------------------ */
 :where(:root) {
-  /* Use a common sans-serif font stack for better cross-platform compatibility. */
-  font-family: 'Helvetica Neue', arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'BIZ UDPGothic', meiryo,
-    sans-serif;
+  /* Specify a safe font-family for the default Gothic typeface. */
+  font-family: 'Helvetica Neue', arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'BIZ UDPGothic', meiryo, sans-serif;
 
   /* Normalize font-style. */
   font-style: unset;
 
-  /* Normalize font-weight. */
-  font-weight: 400;
+  /* Set font-weight to 500 as a countermeasure for Windows and Yu Gothic font. */
+  font-weight: 500;
 
   /* From an accessibility perspective, the line spacing within a paragraph should be at least 1.5 times the text size. (https://waic.jp/translations/WCAG21/#visual-presentation) */
   line-height: 1.5;
@@ -110,11 +109,22 @@
   overflow: hidden;
 }
 
+:where(body) {
+  /* Ensures the body element occupies at least 100% of the viewport's block size. */
+  min-block-size: 100svb;
+
+  /* Reset default margin. */
+  margin: unset;
+}
+
 /* ======================================================
 // Custom Properties
 // ------------------------------------------------------ */
 
-/* Easing Function */
+/* ------------------------------------------------------
+// Easing Function
+*/
+
 @property --ease-in-sine {
   syntax: '*';
   inherits: false;
@@ -259,44 +269,115 @@
   initial-value: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-/*
-Leading Trim Custom Properties
+/* ------------------------------------------------------
+// Triangle Shapes
+*/
 
+/*
+Example usage:
+```
+.tooltip::after {
+  --_size: 16px;
+
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: 100%;
+  clip-path: var(--shape-triangle-bottom);
+  inline-size: var(--_size);
+  block-size: calc(var(--_size) / 2 * tan(60deg));
+  margin-inline: auto;
+  background-color: inherit;
+}
+```
+*/
+
+@property --shape-triangle-top {
+  syntax: '*';
+  inherits: false;
+  initial-value: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+@property --shape-triangle-bottom {
+  syntax: '*';
+  inherits: false;
+  initial-value: polygon(0 0, 100% 0, 50% 100%);
+}
+
+@property --shape-triangle-right {
+  syntax: '*';
+  inherits: false;
+  initial-value: polygon(0 0, 100% 50%, 0 100%);
+}
+
+@property --shape-triangle-left {
+  syntax: '*';
+  inherits: false;
+  initial-value: polygon(0 50%, 100% 0, 100% 100%);
+}
+
+@property --shape-triangle-lower-left {
+  syntax: '*';
+  inherits: false;
+  initial-value: polygon(0 0, 100% 100%, 0 100%);
+}
+
+@property --shape-triangle-upper-left {
+  syntax: '*';
+  inherits: false;
+  initial-value: polygon(0 0, 100% 0, 0 100%);
+}
+
+@property --shape-triangle-lower-right {
+  syntax: '*';
+  inherits: false;
+  initial-value: polygon(100% 0, 100% 100%, 0 100%);
+}
+
+@property --shape-triangle-upper-right {
+  syntax: '*';
+  inherits: false;
+  initial-value: polygon(0 0, 100% 0, 100% 100%);
+}
+
+/* ------------------------------------------------------
+// Leading Trim
+*/
+
+/*
 You can use the `--leading-trim` custom property to adjust the vertical spacing of text elements.
 This helps in achieving more consistent and visually pleasing typography across different languages and font styles.
+
+@see https://www.tak-dcxi.com/article/use-line-height-trim-as-css-variable
 
 Example usage:
 ```
 p {
-  font-size: 1rem;
-  line-height: 1.5;
   margin-block: var(--leading-trim);
 }
-```
 
-@see https://www.tak-dcxi.com/article/use-line-height-trim-as-css-variable
+.button {
+  padding-block: calc(1.5em + var(--leading-trim));
+}
+```
 */
 
-:where(:root) {
-  /* Default value for browsers that don't support `lh` unit. This ensures that no trimming is applied when `lh` is not supported. */
-  --leading-trim: 0px;
+@property --leading-trim {
+  syntax: '*';
+  inherits: false;
+  initial-value: calc((1em - 1lh) / 2);
 }
 
-@supports (top: 1lh) {
-  :where(:root) {
-    /* This ensures that the vertical space is evenly distributed, improving the visual balance of text. */
-    --leading-trim: calc((1em - 1lh) / 2);
-  }
-
-  :where(:lang(en)) {
-    /* This ensures that the vertical space is evenly distributed, improving the visual balance of text. */
-    --leading-trim: calc((1cap - 1lh) / 2);
-  }
+:where(:lang(en)) {
+  /* This ensures that the vertical space is evenly distributed, improving the visual balance of text. */
+  --leading-trim: calc((1cap - 1lh) / 2);
 }
+
+/* ------------------------------------------------------
+// Hover State Custom Properties
+*/
 
 /*
-Hover State Custom Properties
-
 You can use these custom properties to easily switch between hover and non-hover styles.
 The var() function will use the first non-empty value, allowing you to define both states in one line.
 
@@ -308,7 +389,6 @@ Example usage:
   background-color: color-mix(in sRGB, var(--background-button), #fff var(--_background-lighten));
 }
 ```
-
 */
 
 :where(:any-link, :enabled, summary) {
@@ -334,14 +414,6 @@ Example usage:
 /* ======================================================
 // Sections
 // ------------------------------------------------------ */
-:where(body) {
-  /* Ensures the body element occupies at least 100% of the viewport's block size. */
-  min-block-size: 100svb;
-
-  /* Reset default margin. */
-  margin: unset;
-}
-
 :where(h1, h2, h3, h4, h5, h6) {
   /* Reset default margin. */
   margin-block: unset;
@@ -401,6 +473,13 @@ Example usage:
   tab-size: 2;
 }
 
+@media print {
+  :where(pre) {
+    /* Allow text within <pre> elements to wrap when printing. */
+    white-space: pre-wrap;
+  }
+}
+
 /* ======================================================
 // Text-level semantics
 // ------------------------------------------------------ */
@@ -409,22 +488,30 @@ Example usage:
   font-weight: 700;
 }
 
-:where(em):where(:lang(ja)) {
+:where(em):where(:lang(ja, zh)) {
   /* Enhance the weight of bold elements for emphasis. */
   font-weight: 700;
 }
 
-:where(i, cite, em, dfn, var):where(:lang(ja)) {
-  /* Reset font style for specific Japanese language elements. */
+:where(i, cite, em, dfn, var):where(:lang(ja, zh)) {
+  /* Reset font style for specific Japanese and Chinese language elements. */
   font-style: unset;
 }
 
-:where(code, kbd, samp) {
-  /* Set the monospace font using Tailwind as a reference. (https: //tailwindcss.com/docs/font-family) */
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+:where(small) {
+  /* Set the font size to 1em (same as the parent element). */
+  font-size: 1em;
 
-  /* Reset font size to ensure consistent appearance across different devices. */
-  font-size: unset;
+  /* Set the font weight to 500 (slightly bolder than normal). */
+  font-weight: 500;
+}
+
+:where(code, kbd, samp) {
+	/* Set the monospace font using Tailwind as a reference(@see https://tailwindcss.com/docs/font-family). Specifying 'serif' is a countermeasure for Chrome's 13px issue. */
+	font-family: ui-monospace, sfmono-regular, menlo, monaco, consolas, 'Liberation Mono', 'Courier New', serif;
+
+	/* Reset font size to ensure consistent appearance across different devices. */
+	font-size: unset;
 }
 
 :where(cite, dfn)::before {
@@ -446,6 +533,11 @@ Example usage:
 :where(var) {
   /* Sets the font family to serif for <var> elements, enhancing the typographic distinction of variable names in technical content. */
   font-family: serif;
+}
+
+:where(var):where(:lang(ja, zh)) {
+  /* Resets the font family for <var> elements in Japanese or Chinese content. */
+  font-family: unset;
 }
 
 @media (forced-colors: none) {
@@ -496,7 +588,7 @@ Example usage:
 /* ======================================================
 // Edits
 // ------------------------------------------------------ */
-:where(ins) {
+:where(ins):not(:where(.adsbygoogle)) {
   /* Use a dashed line for underlining inserted content, making it distinctly visible. */
   text-decoration-style: dashed;
 
@@ -743,7 +835,7 @@ Example usage:
   outline-offset: 2px;
 }
 
-:where(:focus:not(:focus-visible)) {
+:where(:focus):not(:where(:focus-visible)) {
   /* Hide focus outline unless element is explicitly focus-visible to reduce visual clutter. */
   outline: none;
 }
@@ -770,20 +862,22 @@ Example usage:
 // Utility Classes
 // ------------------------------------------------------ */
 /* Create a pseudo-element to adjust the vertical space above and below an element. */
-.leading-trim::before,
-.leading-trim::after {
-  content: '';
-  display: block flow;
-  inline-size: 0;
-  block-size: 1px;
-}
+.leading-trim {
+  &::before,
+  &::after {
+    content: '';
+    display: block flow;
+    inline-size: 0;
+    block-size: 1px;
+  }
 
-.leading-trim::before {
-  margin-block-end: var(--leading-trim);
-}
+  &::before {
+    margin-block-end: var(--leading-trim);
+  }
 
-.leading-trim::after {
-  margin-block-start: var(--leading-trim);
+  &::after {
+    margin-block-start: var(--leading-trim);
+  }
 }
 
 /* Hide content visually but keep it accessible to screen readers. */
