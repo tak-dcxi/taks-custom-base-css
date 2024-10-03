@@ -1,4 +1,4 @@
-/*! TAK's Custom Base.css v1.3.1 | MIT License | github.com/tak-dcxi/taks-custom-base-css */
+/*! TAK's Custom Base.css v1.3.2 | MIT License | github.com/tak-dcxi/taks-custom-base-css */
 
 /* ======================================================
 //
@@ -95,11 +95,9 @@
 :where(:root, body) {
   /* Prevent scrolling along the inline axis (usually horizontal) for root and body. */
   overflow-inline: clip;
-}
 
-@supports not (overflow-inline: clip) {
-  /* Prevent horizontal scrolling for root and body in browsers that don't support `overflow-inline`. */
-  :where(:root, body) {
+  @supports not (overflow-inline: clip) {
+    /* Prevent horizontal scrolling for root and body in browsers that don't support `overflow-inline`. */
     overflow-x: clip;
   }
 }
@@ -120,6 +118,41 @@
 /* ======================================================
 // Custom Properties
 // ------------------------------------------------------ */
+
+/* ------------------------------------------------------
+// colors
+*/
+
+/*
+  Define a custom property to use as a background color that remains visible in forced colors mode.
+  This is useful when using `background-color: currentColor` as a foreground color,
+  such as in pseudo-elements.
+
+  Example usage:
+  ```
+  .button::after {
+    content: '';
+    justify-self: end;
+    mask-image: url(...);
+    inline-size: 1em;
+    aspect-ratio: 1;
+    background-color: var(--background-current);
+    color: red;
+  }
+*/
+
+@property --background-current {
+  syntax: 'currentColor | CanvasText';
+  inherits: true;
+  initial-value: currentColor;
+}
+
+@media (forced-colors: active) {
+  :root {
+    /* Set the default background color to the forced color mode background. */
+    --background-current: CanvasText;
+  }
+}
 
 /* ------------------------------------------------------
 // Easing Function
@@ -355,7 +388,7 @@ Example usage:
   mask-image: var(--icon-chevron-right);
   inline-size: 1em;
   aspect-ratio: 1;
-  background: linear-gradient(currentColor 0 0), CanvasText;
+  background-color: var(--background-current);
 }
 ```
 */
@@ -439,17 +472,17 @@ Example usage:
   /* Define custom properties for hover state on interactive elements. Default state: `--is-hover-true` is empty, `--is-hover-false` has a value. */
   --is-hover-true: ;
   --is-hover-false: initial;
-}
 
-:where(:where(:any-link, :enabled, summary):focus-visible) {
-  /* Set hover state for focus-visible state. Focus-visible state: `--is-hover-true` has a value, `--is-hover-false` is empty. */
-  --is-hover-true: initial;
-  --is-hover-false: ;
-}
+  @media (any-hover: hover) {
+    &:where(:hover) {
+      /* Set hover state for actual hover, but only on devices that support hover. Hover state: `--is-hover-true` has a value, `--is-hover-false` is empty. */
+      --is-hover-true: initial;
+      --is-hover-false: ;
+    }
+  }
 
-@media (any-hover: hover) {
-  :where(:where(:any-link, :enabled, summary):hover) {
-    /* Set hover state for actual hover, but only on devices that support hover. Hover state: `--is-hover-true` has a value, `--is-hover-false` is empty. */
+  &:where(:focus-visible) {
+    /* Set hover state for focus-visible state. Focus-visible state: `--is-hover-true` has a value, `--is-hover-false` is empty. */
     --is-hover-true: initial;
     --is-hover-false: ;
   }
@@ -515,10 +548,8 @@ Example usage:
 :where(pre) {
   /* Sets the tab character width to 2 spaces for better readability in preformatted text. */
   tab-size: 2;
-}
 
-@media print {
-  :where(pre) {
+  @media print {
     /* Allow text within <pre> elements to wrap when printing. */
     white-space: pre-wrap;
   }
@@ -558,30 +589,32 @@ Example usage:
 	font-size: unset;
 }
 
-:where(cite, dfn)::before {
-  /* Inserts an opening quotation mark before the content of <cite> and <dfn> elements, defaulting to a double quote unless overridden. */
-  content: var(--_quotation-start, '“');
-}
+:where(cite, dfn) {
+  &::before {
+    /* Inserts an opening quotation mark before the content of <cite> and <dfn> elements, defaulting to a double quote unless overridden. */
+    content: var(--_quotation-start, '“');
+  }
 
-:where(cite, dfn)::after {
-  /* Inserts a closing quotation mark after the content of <cite> and <dfn> elements, defaulting to a double quote unless overridden. */
-  content: var(--_quotation-end, '”');
-}
+  &::after {
+    /* Inserts a closing quotation mark after the content of <cite> and <dfn> elements, defaulting to a double quote unless overridden. */
+    content: var(--_quotation-end, '”');
+  }
 
-:where(cite, dfn):where(:lang(ja)) {
-  /* Overrides the default opening quotation mark with the Japanese opening quote for <cite> and <dfn> elements in Japanese. */
-  --_quotation-start: '「';
-  --_quotation-end: '」';
+  &:where(:lang(ja)) {
+    /* Overrides the default opening quotation mark with the Japanese opening quote for <cite> and <dfn> elements in Japanese. */
+    --_quotation-start: '「';
+    --_quotation-end: '」';
+  }
 }
 
 :where(var) {
   /* Sets the font family to serif for <var> elements, enhancing the typographic distinction of variable names in technical content. */
   font-family: serif;
-}
 
-:where(var):where(:lang(ja, zh)) {
-  /* Resets the font family for <var> elements in Japanese or Chinese content. */
-  font-family: unset;
+  &:where(:lang(ja, zh)) {
+    /* Resets the font family for <var> elements in Japanese or Chinese content. */
+    font-family: unset;
+  }
 }
 
 @media (forced-colors: none) {
@@ -763,7 +796,7 @@ Example usage:
   cursor: pointer;
 }
 
-:where(select:disabled) {
+:where(select):where(:disabled) {
   /* Keep the opacity of disabled selects consistent with other disabled elements. */
   opacity: inherit;
 }
@@ -929,9 +962,9 @@ Example usage:
   position: fixed !important;
   inset: 0 !important;
   contain: strict !important;
-  visibility: visible !important;
+  visibility: initial !important;
   inline-size: 4px !important;
-  aspect-ratio: 1 !important;
+  block-size: 4px !important;
   margin: unset !important;
   padding: unset !important;
   border: none !important;
