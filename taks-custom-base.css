@@ -1,4 +1,4 @@
-/*! TAK's Custom Base.css v1.3.2 | MIT License | github.com/tak-dcxi/taks-custom-base-css */
+/*! TAK's Custom Base.css v1.3.3 | MIT License | github.com/tak-dcxi/taks-custom-base-css */
 
 /* ======================================================
 //
@@ -27,11 +27,11 @@
   border-style: solid;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  *,
-  ::before,
-  ::after,
-  ::backdrop {
+*,
+::before,
+::after,
+::backdrop {
+  @media (prefers-reduced-motion: reduce) {
     /* Disable animations and transitions for users who prefer reduced motion. */
     background-attachment: unset !important;
     scroll-behavior: unset !important;
@@ -47,6 +47,16 @@
 /* ======================================================
 // Root and body elements
 // ------------------------------------------------------ */
+:where(:root, body) {
+  /* Prevent scrolling along the inline axis (usually horizontal) for root and body. */
+  overflow-inline: clip;
+
+  @supports not (overflow-inline: clip) {
+    /* Prevent horizontal scrolling for root and body in browsers that don't support `overflow-inline`. */
+    overflow-x: clip;
+  }
+}
+
 :where(:root) {
   /* Specify a safe font-family for the default Gothic typeface. */
   font-family: 'Helvetica Neue', arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'BIZ UDPGothic', meiryo, sans-serif;
@@ -90,21 +100,11 @@
 
   /* Eliminate the tap highlight color on mobile devices for a cleaner interface. */
   -webkit-tap-highlight-color: transparent;
-}
 
-:where(:root, body) {
-  /* Prevent scrolling along the inline axis (usually horizontal) for root and body. */
-  overflow-inline: clip;
-
-  @supports not (overflow-inline: clip) {
-    /* Prevent horizontal scrolling for root and body in browsers that don't support `overflow-inline`. */
-    overflow-x: clip;
+  &:has(:where(:modal)) {
+    /* Prevent scrolling of the document when a modal is open. */
+    overflow: hidden;
   }
-}
-
-:where(:root):has(:where(:modal)) {
-  /* Prevent scrolling of the document when a modal is open. */
-  overflow: hidden;
 }
 
 :where(body) {
@@ -147,8 +147,8 @@
   initial-value: currentColor;
 }
 
-@media (forced-colors: active) {
-  :root {
+:where(:root) {
+  @media (forced-colors: active) {
     /* Set the default background color to the forced color mode background. */
     --background-current: CanvasText;
   }
@@ -396,25 +396,75 @@ Example usage:
 @property --icon-chevron-up {
   syntax: '<url>';
   inherits: false;
-  initial-value: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m4 16 8-8 8 8" /></svg>');
+  initial-value: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m4 16 8-8 8 8" /></svg>');
 }
 
 @property --icon-chevron-right {
   syntax: '<url>';
   inherits: false;
-  initial-value: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4L16 12L8 20" /></svg>');
+  initial-value: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4L16 12L8 20" /></svg>');
 }
 
 @property --icon-chevron-down {
   syntax: '<url>';
   inherits: false;
-  initial-value: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8L12 16L20 8" /></svg>');
+  initial-value: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8L12 16L20 8" /></svg>');
 }
 
 @property --icon-chevron-left {
   syntax: '<url>';
   inherits: false;
-  initial-value: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4L8 12L16 20" /></svg>');
+  initial-value: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4L8 12L16 20" /></svg>');
+}
+
+@property --icon-chevrons-up {
+  syntax: '<url>';
+  inherits: false;
+  initial-value: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 18L12 13L7 18M17 11L12 6L7 11" /></svg>');
+}
+
+@property --icon-chevrons-right {
+  syntax: '<url>';
+  inherits: false;
+  initial-value: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7L11 12L6 17M13 7L18 12L13 17" /></svg>');
+}
+
+@property --icon-chevrons-down {
+  syntax: '<url>';
+  inherits: false;
+  initial-value: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 6L12 11L7 6M17 13L12 18L7 13" /></svg>');
+}
+
+@property --icon-chevrons-left {
+  syntax: '<url>';
+  inherits: false;
+  initial-value: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 7L13 12L18 17M11 7L6 12L11 17" /></svg>');
+}
+
+/* ------------------------------------------------------
+// Launch Link Shapes
+*/
+
+/*
+The chevron icon is borrowed from Basicons (https://basicons.xyz/).
+
+Example usage:
+```
+.button[target="_blank"]::after {
+  content: '' / '別ウインドウで開きます';
+  justify-self: end;
+  mask-image: var(--icon-launch-link);
+  inline-size: 1em;
+  aspect-ratio: 1;
+  background-color: var(--background-current);
+}
+```
+*/
+
+@property --icon-launch-link {
+  syntax: '<url>';
+  inherits: false;
+  initial-value: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2H22V7" /><path d="M21 13V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H11" /><path d="M13 11L21.5 2.5" /></svg>');
 }
 
 /* ------------------------------------------------------
@@ -568,8 +618,8 @@ Example usage:
   font-weight: 700;
 }
 
-:where(i, cite, em, dfn, var):where(:lang(ja, zh)) {
-  /* Reset font style for specific Japanese and Chinese language elements. */
+:where(i, cite, em, dfn, var):where(:lang(ja)) {
+  /* Reset font style for specific Japanese language elements. */
   font-style: unset;
 }
 
@@ -611,14 +661,14 @@ Example usage:
   /* Sets the font family to serif for <var> elements, enhancing the typographic distinction of variable names in technical content. */
   font-family: serif;
 
-  &:where(:lang(ja, zh)) {
-    /* Resets the font family for <var> elements in Japanese or Chinese content. */
+  &:where(:lang(ja)) {
+    /* Resets the font family for <var> elements in Japanese content. */
     font-family: unset;
   }
 }
 
-@media (forced-colors: none) {
-  :where(mark) {
+:where(mark) {
+  @media (forced-colors: none) {
     /* Remove any default background colors. */
     background-color: unset;
 
@@ -629,7 +679,7 @@ Example usage:
     text-decoration-line: underline;
 
     /* Sets the color of the underline using a mix of the 'Mark' color and transparency. */
-    text-decoration-color: oklch(from #ffff00 l c h / 0.5);
+    text-decoration-color: oklch(from #ff0 l c h / 50%);
 
     /* Specifies the thickness of the underline. */
     text-decoration-thickness: 0.4em;
@@ -660,6 +710,9 @@ Example usage:
 
   /* Position the underline slightly away from the text for enhanced legibility. */
   text-underline-offset: 0.25em;
+
+  /* Adjust underline to skip over descenders for better readability. */
+  text-decoration-skip-ink: auto;
 }
 
 /* ======================================================
@@ -671,6 +724,9 @@ Example usage:
 
   /* Position the underline slightly away from the text for enhanced legibility. */
   text-underline-offset: 0.4em;
+
+  /* Adjust underline to skip over descenders for better readability. */
+  text-decoration-skip-ink: auto;
 }
 
 :where(del) {
@@ -681,7 +737,7 @@ Example usage:
 /* ======================================================
 // Embedded content
 // ------------------------------------------------------ */
-:where(img, svg, video, canvas, audio, iframe, embed, object) {
+:where(img, picture, svg, video, canvas, audio, iframe, embed, object) {
   /* Set elements to display as block-level flow containers, suitable for complex layouts. */
   display: block flow;
 
@@ -730,8 +786,7 @@ Example usage:
   padding: unset;
 
   /* Apply a transparent border for forced colors mode. */
-  border-width: 1px;
-  border-color: transparent;
+  border: 1px solid transparent;
 
   /* Resets border-radius to default. */
   border-radius: unset;
@@ -790,7 +845,7 @@ Example usage:
   padding: unset;
 }
 
-:where(button, label[for], select, [role='tab'], [role='button']),
+:where(button, label[for], select, [role='tab'], [role='button'], [role='option']),
 ::file-selector-button {
   /* Indicate clickable elements with a pointer cursor. */
   cursor: pointer;
@@ -848,7 +903,7 @@ Example usage:
   display: none;
 }
 
-:where(dialog) {
+:where(dialog, [popover]) {
   /* Resets overflow property. */
   overflow: unset;
 
@@ -874,24 +929,9 @@ Example usage:
   color: unset;
 }
 
-:where([popover]) {
-  /* Resets overflow property. */
-  overflow: unset;
-
-  /* Resets the inline size property. */
-  inline-size: unset;
-
-  /* Resets the block size property. */
-  block-size: unset;
-
-  /* Removes default padding. */
-  padding: unset;
-
-  /* Removes default background color. */
-  background-color: unset;
-
-  /* Resets color to default. */
-  color: unset;
+:where(dialog:not([open], [popover]), [popover]:not(:popover-open)) {
+  /* Hide the dialog element and popover element when it is not open. */
+  display: none !important;
 }
 
 ::backdrop {
