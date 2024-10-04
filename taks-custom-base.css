@@ -396,25 +396,75 @@ Example usage:
 @property --icon-chevron-up {
   syntax: '<url>';
   inherits: false;
-  initial-value: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m4 16 8-8 8 8" /></svg>');
+  initial-value: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m4 16 8-8 8 8" /></svg>');
 }
 
 @property --icon-chevron-right {
   syntax: '<url>';
   inherits: false;
-  initial-value: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4L16 12L8 20" /></svg>');
+  initial-value: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4L16 12L8 20" /></svg>');
 }
 
 @property --icon-chevron-down {
   syntax: '<url>';
   inherits: false;
-  initial-value: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8L12 16L20 8" /></svg>');
+  initial-value: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8L12 16L20 8" /></svg>');
 }
 
 @property --icon-chevron-left {
   syntax: '<url>';
   inherits: false;
-  initial-value: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4L8 12L16 20" /></svg>');
+  initial-value: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4L8 12L16 20" /></svg>');
+}
+
+@property --icon-chevrons-up {
+  syntax: '<url>';
+  inherits: false;
+  initial-value: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 18L12 13L7 18M17 11L12 6L7 11" /></svg>');
+}
+
+@property --icon-chevrons-right {
+  syntax: '<url>';
+  inherits: false;
+  initial-value: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7L11 12L6 17M13 7L18 12L13 17" /></svg>');
+}
+
+@property --icon-chevrons-down {
+  syntax: '<url>';
+  inherits: false;
+  initial-value: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 6L12 11L7 6M17 13L12 18L7 13" /></svg>');
+}
+
+@property --icon-chevrons-left {
+  syntax: '<url>';
+  inherits: false;
+  initial-value: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 7L13 12L18 17M11 7L6 12L11 17" /></svg>');
+}
+
+/* ------------------------------------------------------
+// Launch Link Shapes
+*/
+
+/*
+The chevron icon is borrowed from Basicons (https://basicons.xyz/).
+
+Example usage:
+```
+.button[target="_blank"]::after {
+  content: '' / '別ウインドウで開きます';
+  justify-self: end;
+  mask-image: var(--icon-launch-link);
+  inline-size: 1em;
+  aspect-ratio: 1;
+  background-color: var(--background-current);
+}
+```
+*/
+
+@property --icon-launch-link {
+  syntax: '<url>';
+  inherits: false;
+  initial-value: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2H22V7" /><path d="M21 13V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H11" /><path d="M13 11L21.5 2.5" /></svg>');
 }
 
 /* ------------------------------------------------------
