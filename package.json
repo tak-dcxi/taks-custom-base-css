@@ -1,6 +1,6 @@
 {
   "name": "taks-custom-base-css",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "description": "This CSS is built based on Normalize.css. It aims to normalize styles for better cross-browser compatibility and to remove default browser styling.",
   "main": "taks-custom-base.css",
   "style": "taks-custom-base.css",
