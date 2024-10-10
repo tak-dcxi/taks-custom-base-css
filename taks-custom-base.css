@@ -1,15 +1,16 @@
-/*! TAK's Custom Base.css v1.3.3 | MIT License | github.com/tak-dcxi/taks-custom-base-css */
+/*! TAK's Custom Base.css v1.3.4 | MIT License | github.com/tak-dcxi/taks-custom-base-css */
 
 /* ======================================================
 //
-// TAK's Custom Base.css Made by TAK - https://www.tak-dcxi.com/
+// MARK: # TAK's Custom Base.css
+// Made by TAK - https: //www.tak-dcxi.com/
 // This CSS is built based on Normalize.css. (https: //necolas.github.io/normalize.css/)
 // It aims to normalize styles for better cross-browser compatibility, remove default browser styling, and enhance usability and accessibility for all users."
 //
 // ====================================================== */
 
 /* ======================================================
-// Universal
+// MARK: ## Universal
 // ------------------------------------------------------ */
 *,
 ::before,
@@ -27,25 +28,8 @@
   border-style: solid;
 }
 
-*,
-::before,
-::after,
-::backdrop {
-  @media (prefers-reduced-motion: reduce) {
-    /* Disable animations and transitions for users who prefer reduced motion. */
-    background-attachment: unset !important;
-    scroll-behavior: unset !important;
-    transition-delay: unset !important;
-    transition-duration: 1ms !important;
-    animation-duration: 1ms !important;
-    animation-delay: unset !important;
-    animation-iteration-count: unset !important;
-    view-transition-name: none !important;
-  }
-}
-
 /* ======================================================
-// Root and body elements
+// MARK: ## Document and Body Elements
 // ------------------------------------------------------ */
 :where(:root, body) {
   /* Prevent scrolling along the inline axis (usually horizontal) for root and body. */
@@ -116,11 +100,11 @@
 }
 
 /* ======================================================
-// Custom Properties
+// MARK: ## Custom Properties
 // ------------------------------------------------------ */
 
 /* ------------------------------------------------------
-// colors
+// MARK: ### colors
 */
 
 /*
@@ -155,7 +139,7 @@
 }
 
 /* ------------------------------------------------------
-// Easing Function
+// MARK: ### easing function
 */
 
 @property --ease-in-sine {
@@ -303,7 +287,7 @@
 }
 
 /* ------------------------------------------------------
-// Triangle Shapes
+// MARK: ### triangle shapes
 */
 
 /*
@@ -374,7 +358,7 @@ Example usage:
 }
 
 /* ------------------------------------------------------
-// Chevron Shapes
+// MARK: ### chevron icons
 */
 
 /*
@@ -393,6 +377,7 @@ Example usage:
 ```
 */
 
+/* single chevron icons */
 @property --icon-chevron-up {
   syntax: '<url>';
   inherits: false;
@@ -417,6 +402,7 @@ Example usage:
   initial-value: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4L8 12L16 20" /></svg>');
 }
 
+/* double chevron icons */
 @property --icon-chevrons-up {
   syntax: '<url>';
   inherits: false;
@@ -442,7 +428,7 @@ Example usage:
 }
 
 /* ------------------------------------------------------
-// Launch Link Shapes
+// MARK: ### launch link icon
 */
 
 /*
@@ -468,7 +454,7 @@ Example usage:
 }
 
 /* ------------------------------------------------------
-// Leading Trim
+// MARK: ### leading trim
 */
 
 /*
@@ -501,7 +487,7 @@ p {
 }
 
 /* ------------------------------------------------------
-// Hover State Custom Properties
+// MARK: ### hover state
 */
 
 /*
@@ -539,7 +525,7 @@ Example usage:
 }
 
 /* ======================================================
-// Sections
+// MARK: ## Sections
 // ------------------------------------------------------ */
 :where(h1, h2, h3, h4, h5, h6) {
   /* Reset default margin. */
@@ -555,7 +541,7 @@ Example usage:
 }
 
 /* ======================================================
-// Grouping content
+// MARK: ## Grouping content
 // ------------------------------------------------------ */
 :where(p, blockquote, figure, pre, address, ul, ol, dl) {
   /* Reset default margin-block. */
@@ -606,14 +592,14 @@ Example usage:
 }
 
 /* ======================================================
-// Text-level semantics
+// MARK: ## Text-level semantics
 // ------------------------------------------------------ */
 :where(b, strong) {
   /* Enhance the weight of bold elements for emphasis. */
   font-weight: 700;
 }
 
-:where(em):where(:lang(ja, zh)) {
+:where(em):where(:lang(ja)) {
   /* Enhance the weight of bold elements for emphasis. */
   font-weight: 700;
 }
@@ -640,14 +626,17 @@ Example usage:
 }
 
 :where(cite, dfn) {
+  --_quotation-start: '“';
+  --_quotation-end: '”';
+
   &::before {
     /* Inserts an opening quotation mark before the content of <cite> and <dfn> elements, defaulting to a double quote unless overridden. */
-    content: var(--_quotation-start, '“');
+    content: var(--_quotation-start);
   }
 
   &::after {
     /* Inserts a closing quotation mark after the content of <cite> and <dfn> elements, defaulting to a double quote unless overridden. */
-    content: var(--_quotation-end, '”');
+    content: var(--_quotation-end);
   }
 
   &:where(:lang(ja)) {
@@ -693,7 +682,7 @@ Example usage:
 }
 
 /* ======================================================
-// Links
+// MARK: ## Links
 // ------------------------------------------------------ */
 :where(:any-link) {
   /* Remove any default background colors. */
@@ -716,7 +705,7 @@ Example usage:
 }
 
 /* ======================================================
-// Edits
+// MARK: ## Edits
 // ------------------------------------------------------ */
 :where(ins):not(:where(.adsbygoogle)) {
   /* Use a dashed line for underlining inserted content, making it distinctly visible. */
@@ -735,7 +724,7 @@ Example usage:
 }
 
 /* ======================================================
-// Embedded content
+// MARK: ## Embedded content
 // ------------------------------------------------------ */
 :where(img, picture, svg, video, canvas, audio, iframe, embed, object) {
   /* Set elements to display as block-level flow containers, suitable for complex layouts. */
@@ -749,7 +738,7 @@ Example usage:
 }
 
 /* ======================================================
-// Tabular data
+// MARK: ## Tabular data
 // ------------------------------------------------------ */
 :where(table) {
   /* Collapses border for a more compact table design. */
@@ -778,7 +767,7 @@ Example usage:
 }
 
 /* ======================================================
-// Forms
+// MARK: ## Forms
 // ------------------------------------------------------ */
 :where(button, input, select, textarea),
 ::file-selector-button {
@@ -888,7 +877,7 @@ Example usage:
 }
 
 /* ======================================================
-// Interactive elements
+// MARK: ## Interactive elements
 // ------------------------------------------------------ */
 :where(summary) {
   /* Eliminate the default marker from details summary for a cleaner disclosure widget. */
@@ -940,7 +929,7 @@ Example usage:
 }
 
 /* ======================================================
-// Focus styles
+// MARK: ## Focus styles
 // ------------------------------------------------------ */
 :where(:-moz-focusring) {
   /* Improve outlines for Firefox and unify style with input elements and buttons. */
@@ -963,7 +952,7 @@ Example usage:
 }
 
 /* ======================================================
-// Misc
+// MARK: ## Misc
 // ------------------------------------------------------ */
 :where(:disabled, [aria-disabled='true']) {
   /* Show default cursor for disabled elements to reflect their non-interactive state. */
@@ -976,7 +965,30 @@ Example usage:
 }
 
 /* ======================================================
-// Utility Classes
+// MARK: ## Reduced Motion
+// ------------------------------------------------------ */
+/* Target all elements that don't have the 'data-safe-animation' attribute. */
+:not([data-safe-animation]) {
+  &,
+  &::before,
+  &::after,
+  &::backdrop {
+    @media (prefers-reduced-motion: reduce) {
+      /* Disable animations and transitions for users who prefer reduced motion. */
+      background-attachment: unset !important;
+      scroll-behavior: unset !important;
+      transition-delay: unset !important;
+      transition-duration: 1ms !important;
+      animation-duration: 1ms !important;
+      animation-delay: unset !important;
+      animation-iteration-count: unset !important;
+      view-transition-name: none !important;
+    }
+  }
+}
+
+/* ======================================================
+// MARK: ## Utility Classes
 // ------------------------------------------------------ */
 /* Create a pseudo-element to adjust the vertical space above and below an element. */
 .leading-trim {
